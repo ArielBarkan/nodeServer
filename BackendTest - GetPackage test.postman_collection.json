@@ -1,0 +1,396 @@
+{
+	"info": {
+		"_postman_id": "6e1d1bf1-d353-4f35-92dd-40b3217b22f2",
+		"name": "BackendTest - GetPackage test",
+		"description": "GetPackage test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "authenticate TEST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b8b476c-7627-4054-af6f-ba9f108ba9ef",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "authorization",
+						"value": "{{dynamicToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"ayruiel2\",\n    \"password\": \"121212\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/users/test",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"test"
+					]
+				},
+				"description": "The endpoint should authenticate a user by getting a username and password from the user and returning an access token."
+			},
+			"response": []
+		},
+		{
+			"name": "1 create COURIER",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"user1\",\n    \"password\": \"121212\",\n    \"group\": 1,\n    \"firstName\": \"Some Name1\",\n    \"lastName\": \"Some lastName1\",\n    \"phoneNumber\": \"05299987\",\n    \"vehicleType\": 3\n\n}"
+				},
+				"url": {
+					"raw": "{{host}}/users/create",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"create"
+					]
+				},
+				"description": "The endpoint should authenticate a user by getting a username and password from the user and returning an access token."
+			},
+			"response": []
+		},
+		{
+			"name": "1  create SENDER",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"company1\",\n    \"password\": \"121212\",\n    \"group\": 2,\n    \"companyName\": \"My Company1\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/users/create",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"create"
+					]
+				},
+				"description": "The endpoint should authenticate a user by getting a username and password from the user and returning an access token."
+			},
+			"response": []
+		},
+		{
+			"name": "2 Courier Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "08025b17-f476-4fb3-8a89-ef336cb295d3",
+						"exec": [
+							"if(pm.response.code === 200){",
+							"    pm.environment.set(\"dynamicToken\",  pm.response.json().data.token);",
+							"}else{",
+							"      pm.environment.set(\"dynamicToken\", null);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"user1\",\n    \"password\": \"121212\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"login"
+					]
+				},
+				"description": "The endpoint should authenticate a user by getting a username and password from the user and returning an access token."
+			},
+			"response": []
+		},
+		{
+			"name": "2 Sender Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ed3f358-6070-444e-bc35-5174a8623277",
+						"exec": [
+							"if(pm.response.code === 200){",
+							"    pm.environment.set(\"dynamicToken\",  pm.response.json().data.token);",
+							"}else{",
+							"      pm.environment.set(\"dynamicToken\", null);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"company1\",\n    \"password\": \"121212\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"login"
+					]
+				},
+				"description": "The endpoint should authenticate a user by getting a username and password from the user and returning an access token."
+			},
+			"response": []
+		},
+		{
+			"name": "2 Add delivery (only for Senders)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b47fa80f-62e7-4d2e-be6d-bfd18210d919",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "authorization",
+						"value": "{{dynamicToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"packageSize\": 5,\n    \"cost\": 100,\n    \"description\": \"This is blablalb\",\n    \"date\": \"1/7/2010\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/adddelivery",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"adddelivery"
+					]
+				},
+				"description": "The endpoint should authenticate a user by getting a username and password from the user and returning an access token."
+			},
+			"response": []
+		},
+		{
+			"name": "3 Assign delivery (only for Senders) Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "acc45cd0-a2de-46e1-84a0-604858613527",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "authorization",
+						"value": "{{dynamicToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"deliveryId\": 19,\n     \"courierId\": 1\n}"
+				},
+				"url": {
+					"raw": "{{host}}/assigndelivery",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"assigndelivery"
+					]
+				},
+				"description": "The endpoint should authenticate a user by getting a username and password from the user and returning an access token."
+			},
+			"response": []
+		},
+		{
+			"name": "4 Get deliveries",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9ca2f303-6899-460c-8948-06894ebe4433",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "authorization",
+						"type": "text",
+						"value": "{{dynamicToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"date\": \"2010-01-07 22:00:00\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/getdeliveries",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"getdeliveries"
+					]
+				},
+				"description": "The endpoint should authenticate a user by getting a username and password from the user and returning an access token."
+			},
+			"response": []
+		},
+		{
+			"name": "5 Get Courier revenue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aef5bb00-943d-4bdf-b603-7b18fa75c5e2",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "authorization",
+						"type": "text",
+						"value": "{{dynamicToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"fromDate\": \"2020-07-01\",\n     \"toDate\": \"2020-07-01\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/getrevenue",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"getrevenue"
+					]
+				},
+				"description": "The endpoint should authenticate a user by getting a username and password from the user and returning an access token."
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "2c6d276a-ca8a-4ddc-a7ae-42d8662668a4",
+			"key": "host",
+			"value": "http://localhost:3000/"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
