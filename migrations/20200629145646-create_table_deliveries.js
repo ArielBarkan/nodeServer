@@ -1,5 +1,4 @@
 'use strict';
-dateFormat = require('dateformat');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
