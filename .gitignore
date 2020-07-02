@@ -1,4 +1,4 @@
-.history
-node_modules
-seeders
-package-lock.json
+/.history
+/node_modules
+/package-lock.json
+/seeders
