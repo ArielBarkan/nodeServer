@@ -96,6 +96,7 @@ v1routers.post("/api/v1/adddelivery",auth, async (req, res) => {
                 createJsonResponse(0, "Don't have permission to add deliveries",{token: authData.token})
             ); 
         }
+     
         const newDelivery =  await Delivery.create({
             packageSize: reqData.packageSize,
             cost: reqData.cost,
@@ -246,6 +247,17 @@ v1routers.get("/api/v1/getrevenue",auth, async (req, res) => {
                ); 
                return;
          }
+
+         // Checking that the provided date range is in the past
+         if(
+             (dateFormat(reqData.fromDate, "isoDate")  >= dateFormat(new Date(), "isoDate")) ||
+             (dateFormat(reqData.toDate, "isoDate")  >= dateFormat(new Date(), "isoDate"))
+              ) {
+                res.status(401).send(
+                    createJsonResponse(0, "Provided date range must be in the past",{token: authData.token})
+                   ); 
+                return;
+             }
 
 
          const totalRevenue = await  Delivery.sum("cost",{
