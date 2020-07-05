@@ -7,53 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "authenticate TEST",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "6b8b476c-7627-4054-af6f-ba9f108ba9ef",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					},
-					{
-						"key": "authorization",
-						"value": "{{dynamicToken}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"username\": \"ayruiel2\",\n    \"password\": \"121212\"\n}"
-				},
-				"url": {
-					"raw": "{{host}}/users/test",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"users",
-						"test"
-					]
-				},
-				"description": "The endpoint should authenticate a user by getting a username and password from the user and returning an access token."
-			},
-			"response": []
-		},
-		{
-			"name": "1 create COURIER",
+			"name": "1 create COURIER V1",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -68,11 +22,13 @@
 					"raw": "{\n    \"username\": \"user1\",\n    \"password\": \"121212\",\n    \"group\": 1,\n    \"firstName\": \"Some Name1\",\n    \"lastName\": \"Some lastName1\",\n    \"phoneNumber\": \"05299987\",\n    \"vehicleType\": 3\n\n}"
 				},
 				"url": {
-					"raw": "{{host}}/users/create",
+					"raw": "{{host}}/api/v1/users/create",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"users",
 						"create"
 					]
@@ -82,7 +38,7 @@
 			"response": []
 		},
 		{
-			"name": "1  create SENDER",
+			"name": "1  create SENDER V1",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -97,11 +53,13 @@
 					"raw": "{\n    \"username\": \"company1\",\n    \"password\": \"121212\",\n    \"group\": 2,\n    \"companyName\": \"My Company1\"\n}"
 				},
 				"url": {
-					"raw": "{{host}}/users/create",
+					"raw": "{{host}}/api/v1/users/create",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"users",
 						"create"
 					]
@@ -111,7 +69,7 @@
 			"response": []
 		},
 		{
-			"name": "2 Courier Login",
+			"name": "2 Courier Login V1",
 			"event": [
 				{
 					"listen": "test",
@@ -142,11 +100,13 @@
 					"raw": "{\n    \"username\": \"user1\",\n    \"password\": \"121212\"\n}"
 				},
 				"url": {
-					"raw": "{{host}}/login",
+					"raw": "{{host}}/api/v1/login",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"login"
 					]
 				},
@@ -155,7 +115,7 @@
 			"response": []
 		},
 		{
-			"name": "2 Sender Login",
+			"name": "2 Sender Login V1",
 			"event": [
 				{
 					"listen": "test",
@@ -186,11 +146,13 @@
 					"raw": "{\n    \"username\": \"company1\",\n    \"password\": \"121212\"\n}"
 				},
 				"url": {
-					"raw": "{{host}}/login",
+					"raw": "{{host}}/api/v1/login",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"login"
 					]
 				},
@@ -199,12 +161,12 @@
 			"response": []
 		},
 		{
-			"name": "2 Add delivery (only for Senders)",
+			"name": "2  Add delivery V1",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "b47fa80f-62e7-4d2e-be6d-bfd18210d919",
+						"id": "ba64d812-f950-4ce3-a220-5b5205953d5f",
 						"exec": [
 							""
 						],
@@ -222,8 +184,8 @@
 					},
 					{
 						"key": "authorization",
-						"value": "{{dynamicToken}}",
-						"type": "text"
+						"type": "text",
+						"value": "{{dynamicToken}}"
 					}
 				],
 				"body": {
@@ -231,25 +193,27 @@
 					"raw": "{\n    \"packageSize\": 5,\n    \"cost\": 100,\n    \"description\": \"This is blablalb\",\n    \"date\": \"1/7/2010\"\n}"
 				},
 				"url": {
-					"raw": "{{host}}/adddelivery",
+					"raw": "{{host}}/api/v1/adddelivery",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"adddelivery"
 					]
 				},
-				"description": "The endpoint should authenticate a user by getting a username and password from the user and returning an access token."
+				"description": "Only Senders (companies) can add deliveries"
 			},
 			"response": []
 		},
 		{
-			"name": "3 Assign delivery (only for Senders) Copy",
+			"name": "3 Assign delivery V1",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "acc45cd0-a2de-46e1-84a0-604858613527",
+						"id": "38fc7b7b-0c19-4658-abc7-0901e3521fac",
 						"exec": [
 							""
 						],
@@ -273,14 +237,16 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n     \"deliveryId\": 19,\n     \"courierId\": 1\n}"
+					"raw": "{\n     \"deliveryId\": 2,\n     \"courierId\": 1\n}"
 				},
 				"url": {
-					"raw": "{{host}}/assigndelivery",
+					"raw": "{{host}}/api/v1/assigndelivery",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"assigndelivery"
 					]
 				},
@@ -289,12 +255,12 @@
 			"response": []
 		},
 		{
-			"name": "4 Get deliveries",
+			"name": "4 Get deliveries V1",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "9ca2f303-6899-460c-8948-06894ebe4433",
+						"id": "80bae640-e929-4465-99ec-d80e9870f3b7",
 						"exec": [
 							""
 						],
@@ -321,14 +287,16 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n     \"date\": \"2010-01-07 22:00:00\"\n}"
+					"raw": "{\n     \"date\": \"1/7/2010\"\n}"
 				},
 				"url": {
-					"raw": "{{host}}/getdeliveries",
+					"raw": "{{host}}/api/v1/getdeliveries",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"getdeliveries"
 					]
 				},
@@ -337,12 +305,12 @@
 			"response": []
 		},
 		{
-			"name": "5 Get Courier revenue",
+			"name": "5 Get Courier revenue  V1",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "aef5bb00-943d-4bdf-b603-7b18fa75c5e2",
+						"id": "ce74d196-c31d-40ad-a084-32622a1d4778",
 						"exec": [
 							""
 						],
@@ -369,14 +337,16 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n     \"fromDate\": \"2020-07-01\",\n     \"toDate\": \"2020-07-01\"\n}"
+					"raw": "{\n     \"fromDate\": \"2009-05-07\",\n     \"toDate\": \"2009-08-07\"\n}"
 				},
 				"url": {
-					"raw": "{{host}}/getrevenue",
+					"raw": "{{host}}/api/v1/getrevenue",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
+						"v1",
 						"getrevenue"
 					]
 				},
@@ -387,7 +357,7 @@
 	],
 	"variable": [
 		{
-			"id": "2c6d276a-ca8a-4ddc-a7ae-42d8662668a4",
+			"id": "898bf755-9e38-4afc-92a5-ea45da6a9b0c",
 			"key": "host",
 			"value": "http://localhost:3000/"
 		}
