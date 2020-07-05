@@ -1,7 +1,7 @@
 const express = require('express');
 
-const userRouters = require("./routers/user");
-
+const v1routers = require("./routers/v1routes");
+const {createJsonResponse} = require("./db/functions/user"); 
 const app = express();
 
 //DB connection details
@@ -17,16 +17,24 @@ app.use((req, res, next) => {
 app.use(
     express.json(),
 );
+
+
 app.use(
-    userRouters
+    v1routers
 );
 
-
-app.use('', (req, res) => {
-    res.send('Hello');
+app.use('/api/v2/*', (req, res) => {
+    res.status(404).send(
+        createJsonResponse(0, "API V2 not supported yet")
+      );
 })
 
 
+app.use('', (req, res) => {
+    res.status(404).send(
+        createJsonResponse(0, "404")
+      );
+})
 
 
 module.exports = app
